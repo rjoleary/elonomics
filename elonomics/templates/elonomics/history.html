@@ -1,0 +1,16 @@
+{% if matches %}
+    <ul>
+    {% for match in matches %}
+        <li>
+            {{ match.story }}
+            {{ match.player1.full_name }}
+            ({{ match.player1_before_game_elo }})
+            {{ match.outcome.verb }}
+            {{ match.player2.full_name }}
+            ({{ match.player2_before_game_elo }})
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matches have been played.</p>
+{% endif %}

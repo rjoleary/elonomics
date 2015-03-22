@@ -1,0 +1,15 @@
+<h1>{{ player.full_name }}</h1>
+<p>Score: {{ player.elo_score }}</p>
+<h2>Matches</h2>
+{% if matches %}
+    <ul>
+    {% for match in matches %}
+        <li>
+            {{ time_played }}
+            {{ match }}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matches</p>
+{% endif %}
