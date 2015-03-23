@@ -6,7 +6,7 @@ class Player(models.Model):
     full_name = models.CharField(max_length=30)
     sign_off = models.CharField(max_length=10)
     # The player's elo field is a cached result of iterating through all the
-    # matches. If a match is added with a out of order time, this field must be
+    # games. If a game is added with a out of order time, this field must be
     # computed from scratch.
     elo_score = models.IntegerField(default=0)
 
@@ -14,7 +14,7 @@ class Player(models.Model):
         return "{} ({})".format(self.full_name, self.elo_score)
 
 
-class Match(models.Model):
+class Game(models.Model):
     time_played = models.DateTimeField()
     story = models.CharField(max_length=100,
             help_text="Use the format: In a long and adventurous battle...")
