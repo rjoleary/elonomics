@@ -1,10 +1,10 @@
-<h2>Matches</h2>
+<h2>Games</h2>
 
 {% if error_message %}
     <p class="error">{{ error_message }}</p>
 {% endif %}
 
-<form action="{% url 'submit_match' %}" method="post">
+<form action="{% url 'submit_game' %}" method="post">
 {% csrf_token %}
 Time played: <input type="text" name="time_played"><br>
 Story: <input type="text" name="story"><br>
@@ -39,19 +39,19 @@ Sign-off: <input type="text" name="signoff2"><br>
 <input type="submit" value="Submit" />
 </form>
 
-{% if matches %}
+{% if games %}
     <ul>
-    {% for match in matches %}
+    {% for game in games %}
         <li>
-            {{ match.story }}
-            {{ match.player1.full_name }}
-            ({{ match.player1_before_game_elo }})
-            {{ match.outcome.verb }}
-            {{ match.player2.full_name }}
-            ({{ match.player2_before_game_elo }})
+            {{ game.story }}
+            {{ game.player1.full_name }}
+            ({{ game.player1_before_game_elo }})
+            {{ game.outcome.verb }}
+            {{ game.player2.full_name }}
+            ({{ game.player2_before_game_elo }})
         </li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No matches have been played.</p>
+    <p>No games have been played.</p>
 {% endif %}

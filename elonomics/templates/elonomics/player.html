@@ -1,15 +1,15 @@
 <h1>{{ player.full_name }}</h1>
 <p>Score: {{ player.elo_score }}</p>
-<h2>Matches</h2>
-{% if matches %}
+<h2>Games</h2>
+{% if games %}
     <ul>
-    {% for match in matches %}
+    {% for game in games %}
         <li>
             {{ time_played }}
-            {{ match }}
+            {{ game }}
         </li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No matches</p>
+    <p>No games played</p>
 {% endif %}

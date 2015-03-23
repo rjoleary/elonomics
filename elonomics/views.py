@@ -12,26 +12,26 @@ def players(request):
 
 def player(request, user_name):
     player = get_object_or_404(Player, user_name=user_name)
-    matches = (player.player1.all() | player.player2.all()).order_by('-time_played')
-    context = {'player': player, 'matches': matches}
+    games = (player.player1.all() | player.player2.all()).order_by('-time_played')
+    context = {'player': player, 'games': games}
     return render(request, 'elonomics/player.html', context)
 
 
-def history(request):
-    matches = Match.objects.order_by('-time_played')
+def games(request):
+    games = Match.objects.order_by('-time_played')
     players = Player.objects.order_by('full_name')
     outcomes = Outcome.objects.all()
-    context = {'matches': matches, 'players': players, 'outcomes': outcomes}
-    return render(request, 'elonomics/history.html', context)
+    context = {'games': games, 'players': players, 'outcomes': outcomes}
+    return render(request, 'elonomics/games.html', context)
 
 
-def submit_match(request):
+def submit_game(request):
     try:
         # TODO: catch KeyError
         p1 = Player.objects.get(user_name=request.POST['player1'])
         p2 = Player.objects.get(user_name=request.POST['player2'])
     except (Player.DoesNotExist):
-        return render(request, 'elonomics/history.html', {
+        return render(request, 'elonomics/games.html', {
             'error_message': "Player name does not exist."
         })
 
@@ -48,7 +48,7 @@ def submit_match(request):
             outcome=o
     )
     m.save()
-    return HttpResponseRedirect(reverse('history'))
+    return HttpResponseRedirect(reverse('games'))
 
 
 def support(request):
