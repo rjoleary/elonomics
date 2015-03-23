@@ -22,18 +22,17 @@ class Game(models.Model):
     player2 = models.ForeignKey('Player', related_name='player2')
     player1_before_game_elo = models.IntegerField()
     player2_before_game_elo = models.IntegerField()
-    outcome = models.ForeignKey('Outcome')
+
+    CHECKMATES = 'CM'
+    STALEMATES = 'SM'
+    BRIBES = 'BR'
+    OUTCOME_CHOICES = (
+            (CHECKMATES, 'checkmates'),
+            (STALEMATES, 'stalemates')
+    )
+    outcome = models.CharField(max_length=2, choices=OUTCOME_CHOICES, default=CHECKMATES)
 
     def __str__(self):
         return "{} ({}) {} {} ({})".format(self.player1.full_name,
-                self.player1.elo_score, self.outcome.verb,
-                self.player2.full_name, self.player2.elo_score)
-
-
-class Outcome(models.Model):
-    # Examples of verbs are: "checkmates" and "concedes to"
-    verb = models.CharField(max_length=20, unique=True)
-    python_function = models.TextField()
-
-    def __str__(self):
-        return self.verb
+                self.player1_before_game_elo, self.outcome,
+                self.player2.full_name, self.player2_before_game_elo)

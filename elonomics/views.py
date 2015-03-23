@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from elonomics.models import Player, Game, Outcome
+from elonomics.models import Player, Game
 
 
 def players(request):
@@ -20,7 +20,7 @@ def player(request, user_name):
 def games(request):
     games = Game.objects.order_by('-time_played')
     players = Player.objects.order_by('full_name')
-    outcomes = Outcome.objects.all()
+    outcomes = Game.OUTCOME_CHOICES
     context = {'games': games, 'players': players, 'outcomes': outcomes}
     return render(request, 'elonomics/games.html', context)
 
@@ -37,7 +37,6 @@ def submit_game(request):
 
     # TODO: sign-offs
     # TODO: update score
-    o = Outcome.objects.get(verb=request.POST['outcome'])
     m = Game(
             time_played=request.POST['time_played'],
             story=request.POST['story'],
@@ -45,7 +44,7 @@ def submit_game(request):
             player2=p2,
             player1_before_game_elo=p1.elo_score,
             player2_before_game_elo=p2.elo_score,
-            outcome=o
+            outcome=request.POST['outcome']
     )
     m.save()
     return HttpResponseRedirect(reverse('games'))
