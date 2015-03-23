@@ -1,3 +1,44 @@
+<h2>Matches</h2>
+
+{% if error_message %}
+    <p class="error">{{ error_message }}</p>
+{% endif %}
+
+<form action="{% url 'submit_match' %}" method="post">
+{% csrf_token %}
+Time played: <input type="text" name="time_played"><br>
+Story: <input type="text" name="story"><br>
+Player 1:
+<select name="player1">
+{% for player in players %}
+    <option value="{{ player.user_name }}">
+        {{ player.full_name }}
+        ({{ player.elo_score }})
+    </option>
+{% endfor %}
+</select><br>
+Sign-off: <input type="text" name="signoff1"><br>
+Outcome:
+<select name="outcome">
+{% for outcome in outcomes %}
+    <option value="{{ outcome }}">
+        {{ outcome }}
+    </option>
+{% endfor %}
+</select><br>
+Player 2:
+<select name="player2">
+{% for player in players %}
+    <option value={{ player.user_name }}>
+        {{ player.full_name }}
+        ({{ player.elo_score }})
+    </option>
+{% endfor %}
+</select><br>
+Sign-off: <input type="text" name="signoff2"><br>
+<input type="submit" value="Submit" />
+</form>
+
 {% if matches %}
     <ul>
     {% for match in matches %}

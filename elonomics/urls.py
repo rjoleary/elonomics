@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^players/$', views.players, name='players'),
     url(r'^players/(?P<user_name>[\w-]+)/$', views.player, name='player'),
     url(r'^history/$', views.history, name='history'),
+    url(r'^matches/submit/$', views.submit_match, name='submit_match'),
     url(r'^support/$', views.support, name='support')
 )
