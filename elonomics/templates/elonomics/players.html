@@ -2,7 +2,7 @@
     <ul>
     {% for player in players %}
         <li>
-            <a href="/players/{{ player.user_name }}/">{{ player.full_name }}</a>
+            <a href="{% url 'player' player.user_name %}">{{ player.full_name }}</a>
             ({{ player.elo_score }})
         </li>
     {% endfor %}
