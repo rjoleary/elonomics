@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from elonomics.models import Player, Match
 
 
@@ -22,10 +22,7 @@ def players(request):
 
 
 def player(request, user_name):
-    try:
-        player = Player.objects.get(user_name=user_name)
-    except Player.DoesNotExist:
-        raise Http404("Player does not exist!")
+    player = get_object_or_404(Player, user_name=user_name)
     matches = (player.player1.all() | player.player2.all()).order_by('-time_played')
     context = {'player': player, 'matches': matches}
     return render(request, 'elonomics/player.html', context)
