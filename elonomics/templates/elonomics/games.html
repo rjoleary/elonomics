@@ -46,16 +46,18 @@ Sign-off: <input type="text" name="signoff2"><br>
 
 {% if game_groups %}
     {% for day, games in game_groups.items %}
-        <h3>{{ day }}</h3>
-        <ul>
+        <h2>{{ day }}</h2>
+        <ul class="list-group">
         {% for game in games %}
-            <li>
-                {{ game.story }}
-                {{ game.player1.full_name }}
-                ({{ game.player1_before_game_elo }})
-                {{ game.outcome }}
-                {{ game.player2.full_name }}
-                ({{ game.player2_before_game_elo }})
+            <li class="list-group-item">
+                <h3 class="list-group-item-heading">{{ game.story }}</h3>
+                <p class="list-group-item-text">
+                    {{ game.player1.full_name }}
+                    ({{ game.player1_before_game_elo }})
+                    {{ game.outcome }}
+                    {{ game.player2.full_name }}
+                    ({{ game.player2_before_game_elo }})
+                </p>
             </li>
         {% endfor %}
         </ul>
