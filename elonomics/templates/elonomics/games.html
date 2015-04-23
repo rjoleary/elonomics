@@ -42,19 +42,22 @@ Sign-off: <input type="text" name="signoff2"><br>
 <input type="submit" value="Submit" />
 </form>
 
-{% if games %}
-    <ul>
-    {% for game in games %}
-        <li>
-            {{ game.story }}
-            {{ game.player1.full_name }}
-            ({{ game.player1_before_game_elo }})
-            {{ game.outcome.verb }}
-            {{ game.player2.full_name }}
-            ({{ game.player2_before_game_elo }})
-        </li>
+{% if game_groups %}
+    {% for day, games in game_groups.items %}
+        <h3>{{ day }}</h3>
+        <ul>
+        {% for game in games %}
+            <li>
+                {{ game.story }}
+                {{ game.player1.full_name }}
+                ({{ game.player1_before_game_elo }})
+                {{ game.outcome }}
+                {{ game.player2.full_name }}
+                ({{ game.player2_before_game_elo }})
+            </li>
+        {% endfor %}
+        </ul>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No games have been played.</p>
 {% endif %}
