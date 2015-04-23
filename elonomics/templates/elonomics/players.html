@@ -5,13 +5,13 @@
 {% block content %}
 <h2>Players</h2>
 {% if players %}
-    <ul>
+    <div class="list-group">
     {% for player in players %}
-        <li>
-            <a href="{% url 'player' player.user_name %}">{{ player.full_name }}</a>
+        <a class="list-group-item" href="{% url 'player' player.user_name %}">
+            {{ player.full_name }}
             ({{ player.elo_score }})
-        </li>
+        </a>
     {% endfor %}
-    </ul>
+    </div>
 {% endif %}
 {% endblock %}
