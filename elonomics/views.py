@@ -57,7 +57,3 @@ def submit_game(request):
     )
     m.save()
     return HttpResponseRedirect(reverse('games'))
-
-
-def support(request):
-    return render(request, 'elonomics/support.html')

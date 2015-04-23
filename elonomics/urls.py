@@ -8,5 +8,4 @@ urlpatterns = patterns('',
     url(r'^players/(?P<user_name>[\w-]+)/$', views.player, name='player'),
     url(r'^games/$', views.games, name='games'),
     url(r'^games/submit/$', views.submit_game, name='submit_game'),
-    url(r'^support/$', views.support, name='support')
 )
