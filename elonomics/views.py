@@ -5,22 +5,6 @@ from django.shortcuts import get_object_or_404, render
 from elonomics.models import Player, Game
 
 
-def players(request):
-    players = Player.objects.order_by('full_name')
-    return render(request, 'elonomics/players.html', {
-        'players': players
-    })
-
-
-def player(request, user_name):
-    player = get_object_or_404(Player, user_name=user_name)
-    games = (player.player1.all() | player.player2.all()).order_by('-time_played')
-    return render(request, 'elonomics/player.html', {
-        'player': player,
-        'games': games
-    })
-
-
 def games(request):
     games = Game.objects.order_by('-time_played')
     # Split games into groups based on day.
@@ -59,3 +43,19 @@ def submit_game(request):
     )
     m.save()
     return HttpResponseRedirect(reverse('games'))
+
+
+def players(request):
+    players = Player.objects.order_by('full_name')
+    return render(request, 'elonomics/players.html', {
+        'players': players
+    })
+
+
+def player(request, user_name):
+    player = get_object_or_404(Player, user_name=user_name)
+    games = (player.player1.all() | player.player2.all()).order_by('-time_played')
+    return render(request, 'elonomics/player.html', {
+        'player': player,
+        'games': games
+    })
