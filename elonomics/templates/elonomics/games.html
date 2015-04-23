@@ -9,39 +9,73 @@
     <p class="error">{{ error_message }}</p>
 {% endif %}
 
+<h3>Add Game</h3>
 <form action="{% url 'submit_game' %}" method="post">
-{% csrf_token %}
-Time played: <input type="text" name="time_played"><br>
-Story: <input type="text" name="story"><br>
-Player 1:
-<select name="player1">
-{% for player in players %}
-    <option value="{{ player.user_name }}">
-        {{ player.full_name }}
-        ({{ player.elo_score }})
-    </option>
-{% endfor %}
-</select><br>
-Sign-off: <input type="text" name="signoff1"><br>
-Outcome:
-<select name="outcome">
-{% for outcome in outcomes %}
-    <option value="{{ outcome }}">
-        {{ outcome }}
-    </option>
-{% endfor %}
-</select><br>
-Player 2:
-<select name="player2">
-{% for player in players %}
-    <option value={{ player.user_name }}>
-        {{ player.full_name }}
-        ({{ player.elo_score }})
-    </option>
-{% endfor %}
-</select><br>
-Sign-off: <input type="text" name="signoff2"><br>
-<input type="submit" value="Submit" />
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">Time Played</span>
+                <input type="text" name="time_played" class="form-control" placeholder="YYYY-MM-DD hh:mm" />
+            </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="input-group">
+              <span class="input-group-addon">Story</span>
+              <input type="password" name="story" class="form-control" placeholder="In a long and adventurous battle..." />
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="input-group">
+                <span class="input-group-addon">Player 1</span>
+                <select name="player1" class="form-control">
+                {% for player in players %}
+                    <option value="{{ player.user_name }}">
+                        {{ player.full_name }}
+                        ({{ player.elo_score }})
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Sign-off</span>
+                <input type="text" name="signoff1" class="form-control"><br>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-addon">Outcome</span>
+                <select name="outcome" class="form-control">
+                {% for outcome in outcomes %}
+                    <option value="{{ outcome }}">
+                        {{ outcome }}
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="input-group">
+                <span class="input-group-addon">Player 2</span>
+                <select name="player2" class="form-control">
+                {% for player in players %}
+                    <option value="{{ player.user_name }}">
+                        {{ player.full_name }}
+                        ({{ player.elo_score }})
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Sign-off</span>
+                <input type="password" name="signoff2" class="form-control"><br>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Add Game" class="btn btn-block btn-primary" />
 </form>
 
 {% if game_groups %}
