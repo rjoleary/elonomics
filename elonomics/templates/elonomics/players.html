@@ -1,3 +1,9 @@
+{% extends 'elonomics/base.html' %}
+
+{% block title %}Elonomics - Players{% endblock %}
+
+{% block content %}
+<h1>Players</h1>
 {% if players %}
     <ul>
     {% for player in players %}
@@ -8,3 +14,4 @@
     {% endfor %}
     </ul>
 {% endif %}
+{% endblock %}

@@ -1,3 +1,8 @@
+{% extends 'elonomics/base.html' %}
+
+{% block title %}Elonomics - {{ player.full_name }}{% endblock %}
+
+{% block content %}
 <h1>{{ player.full_name }}</h1>
 <p>Score: {{ player.elo_score }}</p>
 <h2>Games</h2>
@@ -13,3 +18,4 @@
 {% else %}
     <p>No games played</p>
 {% endif %}
+{% endblock %}

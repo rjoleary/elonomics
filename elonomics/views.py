@@ -7,7 +7,9 @@ from elonomics.models import Player, Game
 
 def players(request):
     players = Player.objects.order_by('full_name')
-    return render(request, 'elonomics/players.html', {'players': players})
+    return render(request, 'elonomics/players.html', {
+        'players': players
+    })
 
 
 def player(request, user_name):
