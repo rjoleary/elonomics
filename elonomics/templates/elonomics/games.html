@@ -1,3 +1,6 @@
+{% extends 'elonomics/base.html' %}
+
+{% block content %}
 <h2>Games</h2>
 
 {% if error_message %}
@@ -55,3 +58,4 @@ Sign-off: <input type="text" name="signoff2"><br>
 {% else %}
     <p>No games have been played.</p>
 {% endif %}
+{% endblock %}
