@@ -7,11 +7,17 @@
 <p>Score: {{ player.elo_score }}</p>
 <h3>Games</h3>
 {% if games %}
-    <ul>
+    <ul class="list-group">
     {% for game in games %}
-        <li>
-            {{ time_played }}
-            {{ game }}
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">{{ game.story }}</h4>
+            <p class="list-group-item-text">
+                {{ game.player1.full_name }}
+                ({{ game.player1_before_game_elo }})
+                {{ game.outcome }}
+                {{ game.player2.full_name }}
+                ({{ game.player2_before_game_elo }})
+            </p>
         </li>
     {% endfor %}
     </ul>
