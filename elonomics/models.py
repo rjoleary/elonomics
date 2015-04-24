@@ -33,7 +33,7 @@ class Game(models.Model):
             (DRAWS, 'draws'),
             (BRIBES, 'bribes'),
     )
-    outcome = models.IntegerField(max_length=2, choices=OUTCOME_CHOICES, default=CHECKMATES)
+    outcome = models.IntegerField(choices=OUTCOME_CHOICES, default=CHECKMATES)
 
     def __str__(self):
         return "{} ({}) {} {} ({})".format(self.player1.full_name,
