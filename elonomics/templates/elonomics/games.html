@@ -5,11 +5,12 @@
 {% block content %}
 <h2>Games</h2>
 
-{% if error_message %}
-    <p class="error">{{ error_message }}</p>
-{% endif %}
-
 <h3>Add Game</h3>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <form action="{% url 'submit_game' %}" method="post">
     {% csrf_token %}
     <div class="row">
