@@ -22,7 +22,7 @@
         <div class="col-lg-6">
           <div class="input-group">
               <span class="input-group-addon">Story</span>
-              <input type="password" name="story" class="form-control" placeholder="In a long and adventurous battle..." />
+              <input type="text" name="story" class="form-control" placeholder="In a long and adventurous battle..." />
           </div>
         </div>
     </div>
@@ -42,16 +42,16 @@
             </div>
             <div class="input-group">
                 <span class="input-group-addon">Sign-off</span>
-                <input type="text" name="signoff1" class="form-control"><br>
+                <input type="password" name="signoff1" class="form-control"><br>
             </div>
         </div>
         <div class="col-lg-2">
             <div class="input-group">
                 <span class="input-group-addon">Outcome</span>
                 <select name="outcome" class="form-control">
-                {% for outcome in outcomes %}
-                    <option value="{{ outcome }}">
-                        {{ outcome }}
+                {% for value, name in outcomes %}
+                    <option value="{{ value }}">
+                        {{ name }}
                     </option>
                 {% endfor %}
                 </select>
@@ -88,7 +88,7 @@
                 <p class="list-group-item-text">
                     {{ game.player1.full_name }}
                     ({{ game.player1_before_game_elo }})
-                    {{ game.outcome }}
+                    {{ game.get_outcome_display }}
                     {{ game.player2.full_name }}
                     ({{ game.player2_before_game_elo }})
                 </p>

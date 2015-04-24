@@ -14,7 +14,7 @@
             <p class="list-group-item-text">
                 {{ game.player1.full_name }}
                 ({{ game.player1_before_game_elo }})
-                {{ game.outcome }}
+                {{ game.get_outcome_display }}
                 {{ game.player2.full_name }}
                 ({{ game.player2_before_game_elo }})
             </p>

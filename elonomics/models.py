@@ -23,16 +23,19 @@ class Game(models.Model):
     player1_before_game_elo = models.IntegerField()
     player2_before_game_elo = models.IntegerField()
 
-    CHECKMATES = 'CM'
-    STALEMATES = 'SM'
-    BRIBES = 'BR'
+    CHECKMATES = 1
+    STALEMATES = 2
+    DRAWS = 3
+    BRIBES = 4
     OUTCOME_CHOICES = (
             (CHECKMATES, 'checkmates'),
-            (STALEMATES, 'stalemates')
+            (STALEMATES, 'stalemates'),
+            (DRAWS, 'draws'),
+            (BRIBES, 'bribes'),
     )
-    outcome = models.CharField(max_length=2, choices=OUTCOME_CHOICES, default=CHECKMATES)
+    outcome = models.IntegerField(max_length=2, choices=OUTCOME_CHOICES, default=CHECKMATES)
 
     def __str__(self):
         return "{} ({}) {} {} ({})".format(self.player1.full_name,
-                self.player1_before_game_elo, self.outcome,
+                self.player1_before_game_elo, self.get_outcome_display(),
                 self.player2.full_name, self.player2_before_game_elo)
