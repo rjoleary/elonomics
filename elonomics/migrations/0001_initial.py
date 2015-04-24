@@ -11,24 +11,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Match',
+            name='Game',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('time_played', models.DateTimeField()),
-                ('story', models.CharField(max_length=100, help_text='Use the format: In a long and adventurous battle...')),
+                ('story', models.CharField(help_text='Use the format: In a long and adventurous battle...', max_length=100)),
                 ('player1_before_game_elo', models.IntegerField()),
                 ('player2_before_game_elo', models.IntegerField()),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Outcome',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('verb', models.CharField(max_length=20, unique=True)),
-                ('python_function', models.TextField()),
+                ('outcome', models.IntegerField(choices=[(1, 'checkmates'), (2, 'stalemates'), (3, 'draws'), (4, 'bribes')], max_length=2, default=1)),
             ],
             options={
             },
@@ -37,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Player',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('user_name', models.SlugField(max_length=30, unique=True)),
                 ('full_name', models.CharField(max_length=30)),
                 ('sign_off', models.CharField(max_length=10)),
@@ -48,19 +38,13 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='match',
-            name='outcome',
-            field=models.ForeignKey(to='elonomics.Outcome'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='match',
+            model_name='game',
             name='player1',
             field=models.ForeignKey(to='elonomics.Player', related_name='player1'),
             preserve_default=True,
         ),
         migrations.AddField(
-            model_name='match',
+            model_name='game',
             name='player2',
             field=models.ForeignKey(to='elonomics.Player', related_name='player2'),
             preserve_default=True,
