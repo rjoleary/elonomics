@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import OrderedDict
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -8,13 +8,18 @@ from elonomics.models import Player, Game
 def games(request):
     games = Game.objects.order_by('-time_played')
     # Split games into groups based on day.
-    game_groups = defaultdict(list)
+    game_groups = OrderedDict()
     for game in games:
-        game_groups['{0:%A, %B} {0.day}'.format(game.time_played)].append(game)
+        key = '{0:%A, %B} {0.day}, {0.year}'.format(game.time_played)
+        if key in game_groups:
+            game_groups[key].append(game)
+        else:
+            game_groups[key] = [game]
+
     players = Player.objects.order_by('full_name')
     outcomes = Game.OUTCOME_CHOICES
     return render(request, 'elonomics/games.html', {
-        'game_groups': dict(game_groups),
+        'game_groups': game_groups,
         'players': players,
         'outcomes': outcomes
     })
